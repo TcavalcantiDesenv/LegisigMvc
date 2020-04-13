@@ -1,0 +1,150 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Model.Entity.ParametrosCliente>
+@{
+    ViewBag.Title = "LegiSig| Portal Legisig";
+}
+@section styles{
+    @Styles.Render("~/coreui/ladda/css")
+    @Styles.Render("~/coreui/datatables/css")
+
+    <style>
+        /* for table */
+        .as_td tr td {
+            /*width: 80px;*/
+            text-align: justify;
+            font-size: 10px;
+        }
+
+            /* for label and span inside td */
+            .as_td tr td label, span {
+                width: 100px;
+            }
+
+            /* for input text control inside td */
+            .as_td tr td input[type=text] {
+                width: 200px;
+            }
+
+            /* for dropdown control inside td */
+            .as_td tr td select {
+                width: 300px;
+            }
+    </style>
+}
+@section breadcrumb{
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index", "Home")">Painel Geral</a>
+        </li>
+        <li class="breadcrumb-item active">Gestão Legal - @ViewBag.Cliente</li>
+        <!-- Breadcrumb Menu-->
+        <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+                <a class="btn" href="javascript:void(0)">
+                    Olá @User.Identity.Name !
+                </a>
+            </div>
+        </li>
+    </ol>
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 style="display: inline-block">Parametros </h4>
+        <a href="@Url.Action("Requisitos", "RequisitosLegais", new { id= ViewBag.IDCliente })" class="btn btn-primary pull-right">
+            <i class="fa icon-angle-left"></i> Voltar
+        </a>
+    </div>
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+    <div class="card-body">
+        <table class="table table-striped table-bordered table-responsive-sm datatable dataTable no-footer" id="companiesTable">
+            <thead>
+                <tr>
+                    <th class="text-center"><span>Capitulo</span></th>
+                    <th class="text-center"><span>Parametro</span></th>
+                    <th class="text-center"><span>Item</span></th>
+                    <th class="text-center"><span>Numero</span></th>
+                    <th class="text-center"><span>Aplicavel</span></th>
+                    <th class="text-center"><span>Obrigacao</span></th>
+                    <th class="text-center"><span>Conhecimento</span></th>
+                    @*<th class="text-center"><span>Ano</span></th>
+                        <th class="text-center"><span>Tipo</span></th>
+                        <th class="text-center"><span>Ementa</span></th>
+                        <th class="text-center"><span>Tema</span></th>*@
+                    @*<th class="text-center"><span>Situação</span></th>*@
+                    <th class="text-center"><span>Ação</span></th>
+                </tr>
+            </thead>
+            <tbody class="as_td">
+                @foreach (var company in Model)
+                {
+                    <tr id="company-row-@company.Id">
+                        @*<td class="text-center">
+                                <span class="label label-large label-@(company.Id > 0  ? "success" : "danger")">#@company.Id</span>
+                            </td>*@
+                        <td style="width: 150px;">@company.Capitulo</td>
+                        <td style="width: 200px;">@company.Parametro</td>
+                        <td style="width: 150px;">@company.Item</td>
+                        <td class="text-center" style="width: 100px;">@company.Numero</td>
+                        <td style="width: 100px;" class="text-center">
+                            @if (company.Aplicavel == "0")
+                            {<span class="badge badge-success">Sim</span>}
+                            else
+                            {<span class="badge badge-danger">Não</span>}
+                        </td>
+                        <td style="width: 100px;" class="text-center">
+                            @if (company.Obrigacao == "0")
+                            {<span class="badge badge-success">Sim</span>}
+                            else
+                            {<span class="badge badge-danger">Não</span>}
+                        </td>
+                        <td style="width: 100px;" class="text-center">
+                            @if (company.Conhecimento == "0")
+                            {<span class="badge badge-success">Sim</span>}
+                            else
+                            {<span class="badge badge-danger">Não</span>}
+                        </td>
+                        @*<td>@company.Aplicavel</td>*@
+                        @*<td>@company.Conhecimento</td>*@
+                        @*<td>@company.Ano</td>
+                            <td>@company.Tipo</td>
+                            <td>@company.Ementa</td>
+                            <td>@company.Tema</td>*@
+                        @*<td>@company.Lei</td>*@
+                        <td style="width: 150px;">
+                            <a class="btn btn-success" title="Evidencias" href="@Url.Action("Evidencias", "Evidencias", new { id = company.Id, legis = company.IDLegisGeral, cliente = company.IDCliente })">
+                                <i class="fa fa-search-plus"></i>
+                            </a>
+                            <a class="btn btn-warning" title="Detalhes / Editar" href="@Url.Action("Details", "ParametrosClientes", new { id = company.Id })">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section modals{
+    <div id="modal-section"></div>
+}
+@section scripts{
+    @Scripts.Render("~/bundles/unobstrusive")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/coreui/ladda/js")
+    @Scripts.Render("~/coreui/datatables/js")
+    <script src="~/Scripts/viewsjs/index.js"></script>
+    <script src="~/Scripts/viewsjs/companyindex.js"></script>
+    <script>
+        $(document).ready(function () {
+            initializeCompanyTable();
+        });
+    </script>
+}
+
+
+

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2462B940-4E6A-4F42-8108-91E96CB0D595}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Model.Dao</RootNamespace>
+    <AssemblyName>Model.Dao</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Npgsql">
+      <HintPath>..\packages\Npgsql.3.1.2\lib\net451\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AbcFarmaAnteriorDao.cs" />
+    <Compile Include="AbcFarmaDao.cs" />
+    <Compile Include="AcessosDao.cs" />
+    <Compile Include="AgendamentoDao.cs" />
+    <Compile Include="AmbitoDao.cs" />
+    <Compile Include="AnexosDao.cs" />
+    <Compile Include="ArquivosDao.cs" />
+    <Compile Include="AspectoImpactoDao.cs" />
+    <Compile Include="Atividade.cs" />
+    <Compile Include="AtividadesDao.cs" />
+    <Compile Include="AtribuicoesDao.cs" />
+    <Compile Include="CidadeDao.cs" />
+    <Compile Include="ClientesADMDao.cs" />
+    <Compile Include="ClientesDao.cs" />
+    <Compile Include="ComercialDao.cs" />
+    <Compile Include="CondicaoOpDao.cs" />
+    <Compile Include="CondicionantesDao.cs" />
+    <Compile Include="ConexaoDB.cs" />
+    <Compile Include="ConexaoDBPG.cs" />
+    <Compile Include="ConformidadeDao.cs" />
+    <Compile Include="ControleOPDao.cs" />
+    <Compile Include="EmailEnviadoDao.cs" />
+    <Compile Include="EstadoDao.cs" />
+    <Compile Include="EvidenciasDao.cs" />
+    <Compile Include="ExecucoesDao.cs" />
+    <Compile Include="FaixaVendaDao.cs" />
+    <Compile Include="LegisClienteDao.cs" />
+    <Compile Include="LegisGeralDao.cs" />
+    <Compile Include="Legis_ClienteDao.cs" />
+    <Compile Include="LeisMonitoramentoDao.cs" />
+    <Compile Include="LicencasDao.cs" />
+    <Compile Include="LinksDao.cs" />
+    <Compile Include="MessagesDao.cs" />
+    <Compile Include="MonitorDao.cs" />
+    <Compile Include="Obrigatorio.cs" />
+    <Compile Include="OrgaoDao.cs" />
+    <Compile Include="PaginasDao.cs" />
+    <Compile Include="ParametrosClienteDao.cs" />
+    <Compile Include="ParametrosDao.cs" />
+    <Compile Include="PlanoAcaoDao.cs" />
+    <Compile Include="ProcessosDao.cs" />
+    <Compile Include="ProdutoBarraDao.cs" />
+    <Compile Include="ProdutoCabecalhoDao.cs" />
+    <Compile Include="ProdutoSincronizadoDao.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SistemasDao.cs" />
+    <Compile Include="SyncProdutoDao.cs" />
+    <Compile Include="Usuarios_AtribuicoesDao.cs" />
+    <Compile Include="Usuarios_PaginasDao.cs" />
+    <Compile Include="ValidacaoDao.cs" />
+    <Compile Include="Validadores.cs" />
+    <Compile Include="ValidadoresDao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Model.Entity\Model.Entity.csproj">
+      <Project>{77c752df-ead7-4f37-9e2c-2411b5de5932}</Project>
+      <Name>Model.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

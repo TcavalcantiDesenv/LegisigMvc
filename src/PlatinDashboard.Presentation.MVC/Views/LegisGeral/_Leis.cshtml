@@ -1,0 +1,115 @@
+﻿
+@model Model.Entity.LegisGeral
+    <div class="card-body" id="form-content">
+
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    @Html.LabelFor(model => model.Sistema)
+                    @Html.EditorFor(model => model.Sistema, new { htmlAttributes = new { @class = "form-control", placeholder = "Sistema" } })
+                    @Html.ValidationMessageFor(model => model.Sistema, "", new { @class = "error invalid-feedback" })
+                </div>
+                <div class="form-group col-sm-3">
+                    @Html.LabelFor(model => model.Ambito)
+                    @Html.EditorFor(model => model.Ambito, new { htmlAttributes = new { @class = "form-control", placeholder = "Ambito" } })
+                    @Html.ValidationMessageFor(model => model.Ambito, "", new { @class = "error invalid-feedback" })
+                </div>
+                <div class="form-group col-sm-3">
+                    @Html.LabelFor(model => model.Orgao)
+                    @Html.EditorFor(model => model.Orgao, new { htmlAttributes = new { @class = "form-control", placeholder = "Orgao" } })
+                    @Html.ValidationMessageFor(model => model.Orgao, "", new { @class = "error invalid-feedback" })
+                </div>
+                <div class="form-group col-sm-3">
+                    @Html.LabelFor(model => model.Numero)
+                    @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control", placeholder = "Numero" } })
+                    @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "error invalid-feedback" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Ementa)
+                @Html.TextAreaFor(m => m.Ementa, 4, 40, new { @class = "form-control", })
+                @*@Html.TextArea(model => model.Ementa, new { htmlAttributes = new { @class = "form-control", placeholder = "Ementa" } })*@
+                @Html.ValidationMessageFor(model => model.Ementa, "", new { @class = "error invalid-feedback" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tema)
+                @Html.TextAreaFor(model => model.Tema, new { @class = "form-control", })
+                @Html.ValidationMessageFor(model => model.Tema, "", new { @class = "error invalid-feedback" })
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(model => model.Ano)
+                    @Html.EditorFor(model => model.Ano, new { htmlAttributes = new { @class = "form-control", placeholder = "Ano" } })
+                    @Html.ValidationMessageFor(model => model.Ano, "", new { @class = "error invalid-feedback" })
+                </div>
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(model => model.Tipo)
+                    @Html.EditorFor(model => model.Tipo, new { htmlAttributes = new { @class = "form-control", placeholder = "Tipo" } })
+                    @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "error invalid-feedback" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(model => model.Estado)
+                    @Html.EditorFor(model => model.Estado, new { htmlAttributes = new { @class = "form-control", placeholder = "Estado" } })
+                    @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "error invalid-feedback" })
+                </div>
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(model => model.Municipio)
+                    @Html.EditorFor(model => model.Municipio, new { htmlAttributes = new { @class = "form-control", placeholder = "Municipio" } })
+                    @Html.ValidationMessageFor(model => model.Municipio, "", new { @class = "error invalid-feedback" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(model => model.lei)
+                    @Html.DropDownListFor(model => model.lei, new SelectList(
+                   new List<Object>{
+                           new { value = "Inativo" , text = "Inativo"  },
+                           new { value = "Ativo" , text = "Ativo" }
+                     },
+                   "value",
+                   "text",
+                    2))
+                </div>
+
+                
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    @Html.LabelFor(model => model.Arqpdf)
+                    @Html.EditorFor(model => model.Arqpdf, new { htmlAttributes = new { @class = "form-control", placeholder = " " } })
+                    @Html.ValidationMessageFor(model => model.Arqpdf, "", new { @class = "error invalid-feedback" })
+                </div>
+                <div class="form-group col-sm-6">
+                    @Html.LabelFor(model => model.link)
+                    @Html.EditorFor(model => model.link, new { htmlAttributes = new { @class = "form-control", placeholder = "url da lei em questão " } })
+                    @Html.ValidationMessageFor(model => model.link, "", new { @class = "error invalid-feedback" })
+                </div>
+                <div class="form-group col-sm-2">
+                    <a href="@Model.link" target="_blank" class="btn btn-primary ">
+                        <i class="fa icon-angle-left"></i> Abrir o site da Lei
+                    </a>
+                </div>
+            </div>
+                if (@Model.Arqpdf != "")
+                {
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <iframe src="@ViewBag.Caminho@Model.Arqpdf"
+                                style="width:1024px; height:700px;" frameborder="0"></iframe>
+                    </div>
+                </div>
+                }
+
+
+                <div class="form-actions col-md-offset-2">
+                    <input class="btn btn-success" type="submit" name="btnsalvar" value="Salvar" />
+                </div>
+                }
+            </div>
+
+

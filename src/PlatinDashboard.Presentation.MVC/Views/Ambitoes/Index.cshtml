@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Model.Entity.Ambito>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@section styles{
+    @Styles.Render("~/coreui/ladda/css")
+    @Styles.Render("~/coreui/datatables/css")
+}
+@section breadcrumb{
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index", "Home")">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Ambitos</li>
+        <!-- Breadcrumb Menu-->
+        <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+                <a class="btn" href="javascript:void(0)">
+                    Olá @User.Identity.Name !
+                </a>
+            </div>
+        </li>
+    </ol>
+}
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+
+<div class="card">
+    <div class="card-header">
+        <h4 style="display: inline-block">Cadastro de Ambitos</h4>
+        <a href="@Url.Action("Create", "Ambitoes")" class="btn btn-success pull-right">
+            <i class="fa icon-plus"></i> Cadastrar
+        </a>
+
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </th>
+                <th class="text-right">Ações</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descricao)
+                </td>
+                @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>*@
+                <td class="text-right">
+                    <a class="btn btn-success" data-toggle="tooltip" data-placement="right" ToolTip="My tooltip text" href="@Url.Action("Edit", "Ambitoes", new { id = item.Id })">
+                        <i class="fa fa-edit "></i>
+                    </a>
+                    <a class="btn btn-warning" href="@Url.Action("Details", "Ambitoes", new { id = item.Id })">
+                        <i class="fa fa-file-archive-o "></i>
+                    </a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", "Ambitoes", new { id = item.Id })">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </td>
+            </tr>
+            }
+        </table>
+    </div>

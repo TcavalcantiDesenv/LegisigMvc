@@ -1,0 +1,91 @@
+﻿
+@model Model.Entity.Conformidade
+<div class="card-body" id="form-content">
+
+    @using (Html.BeginForm())
+    {
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.IDCliente, new { style = "display:none" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.IDLegis, new { style = "display:none" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.IDParametros, new { style = "display:none" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.id, new { style = "display:none" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.IDLegis, new { style = "display:none" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.IDCliente, new { style = "display:none" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.IDParametros, new { style = "display:none" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3">
+                @Html.LabelFor(model => model.DataAvaliacao)
+                @Html.TextBoxFor(model => model.DataAvaliacao, new { @type = "date", @class = "form-control datepicker", @Value = Model.DataAvaliacao.ToString("yyyy-MM-dd") })
+                @Html.ValidationMessageFor(model => model.DataAvaliacao, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-sm-3">
+                @Html.LabelFor(model => model.Avaliado)
+                @Html.TextBoxFor(m => m.Avaliado, new { @class = "form-control", })
+                @Html.ValidationMessageFor(model => model.Avaliado, "", new { @class = "error invalid-feedback" })
+            </div>
+            <div class="form-group col-sm-3">
+                @Html.LabelFor(model => model.DataValidacao)
+                @Html.TextBoxFor(model => model.DataValidacao, new { @type = "date", @class = "form-control datepicker", @Value = Model.DataValidacao.ToString("yyyy-MM-dd") })
+                @Html.ValidationMessageFor(model => model.DataValidacao, "", new { @class = "text-danger" })
+                @*@Html.TextBoxFor(model => model.DataValidacao, new { @type = "date", @class = "form-control datepicker" })
+        @Html.ValidationMessageFor(model => model.DataValidacao, "", new { @class = "text-danger" })*@
+            </div>
+            <div class="form-group col-sm-3">
+                @Html.LabelFor(model => model.Validado)
+                @Html.TextBoxFor(m => m.Validado, new { @class = "form-control", })
+                @Html.ValidationMessageFor(model => model.Validado, "", new { @class = "error invalid-feedback" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Evidencias)
+            @Html.TextAreaFor(m => m.Evidencias, 8, 50, new { @class = "form-control", })
+            @Html.ValidationMessageFor(model => model.Evidencias, "", new { @class = "error invalid-feedback" })
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.ProxAvaliacao)
+                @Html.TextBoxFor(model => model.ProxAvaliacao, new { @type = "date", @class = "form-control datepicker", @Value = Model.ProxAvaliacao.ToString("yyyy-MM-dd") })
+                @Html.ValidationMessageFor(model => model.ProxAvaliacao, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.Resultado)
+                @Html.DropDownListFor(model => model.Resultado, new SelectList(
+               new List<Object>{
+                       new { value = "Não Informado" , text = "Não Informado"  },
+                       new { value = "Atende" , text = "Atende" },
+                       new { value = "Não Atende" , text = "Não Atende"  },
+                       new { value = "Atende Parcial" , text = "Atende Parcial" },
+                       new { value = "Em Andamento" , text = "Em Andamento" },
+                       new { value = "Não Aplicável" , text = "Não Aplicável" }
+                 },
+               "value",
+               "text",
+                2))
+            </div>
+        </div>
+        <div class="form-actions col-md-offset-2">
+            <input class="btn btn-success" type="submit" name="btnsalvar" value="Salvar" />
+        </div>
+    }
+</div>
+
+
+

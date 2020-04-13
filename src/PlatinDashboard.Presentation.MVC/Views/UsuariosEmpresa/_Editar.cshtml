@@ -1,0 +1,67 @@
+﻿@model PlatinDashboard.Application.ViewModels.UserViewModels.EditUserViewModel
+<div class="card-body" id="form-content">
+    @using (Ajax.BeginForm("Editar", new { @controller = "UsuariosEmpresa" },
+        new AjaxOptions
+        {
+            OnSuccess = "editUserCallBack",
+            OnFailure = "editUserFailed()"
+        },
+        new { @id = "edit-form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.UserId)
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.Name)
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome do Usuário" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "error invalid-feedback" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.LastName)
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Sobrenome do Usuário" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "error invalid-feedback" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "E-mail do Usuário", disabled = "" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "error invalid-feedback" })
+        </div>
+        @*<div class="form-group" id="StoreAccess">
+            <label for="Email">Limitar acesso às lojas (Deixe vazio caso não queira limitar o acesso)</label>
+            @Html.ListBoxFor(model => model.UserStoresIds, (IEnumerable<SelectListItem>)ViewBag.Lojas, new { @class = "form-control select2-element", multiple = "multiple" })
+        </div>*@
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.LabelFor(model => model.UserName)
+                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", placeholder = "Login do Usuário", disabled = "" } })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "error invalid-feedback" })
+            </div>
+            <div class="form-group col-sm-4">
+                @Html.LabelFor(model => model.UserType)
+                <select id="UserType" name="UserType" class="form-control">
+                    <option value="Adm-1" @(Model.UserType == "Adm-1" ? "selected" : "")>Adm-1</option>
+                    <option value="Adm-2" @(Model.UserType == "Adm-2" ? "selected" : "")>Adm-2</option>
+                    <option value="Adm-3" @(Model.UserType == "Adm-3" ? "selected" : "")>Adm-3</option>
+                    <option value="G-1" @(Model.UserType == "G-1" ? "selected" : "")>G-1</option>
+                    <option value="G-2" @(Model.UserType == "G-2" ? "selected" : "")>G-2</option>
+                    <option value="G-3" @(Model.UserType == "G-3" ? "selected" : "")>G-3</option>
+                    <option value="Gestor" @(Model.UserType == "Gestor" ? "selected" : "")>Gestor</option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                @Html.LabelFor(model => model.Active)
+                <div>
+                    <label class="switch switch-label switch-pill switch-success">
+                        <input type="checkbox" class="switch-input" name="Active" id="Active" checked="@Model.Active" value="true">
+                        <span class="switch-slider" data-checked="✓" data-unchecked="✕"></span>
+                    </label>
+                    <input name="Active" type="hidden" value="false">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary ladda-button" data-style="zoom-out" id="edit-btn" onclick="submitForm(this, 'edit-form')">
+            <span class="ladda-label">Alterar</span>
+        </button>
+    }
+</div>

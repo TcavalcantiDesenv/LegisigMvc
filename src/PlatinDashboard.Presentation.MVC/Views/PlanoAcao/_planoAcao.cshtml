@@ -1,0 +1,74 @@
+﻿
+
+@model Model.Entity.PlanoAcao
+<div class="card-body" id="form-content">
+
+    @using (Html.BeginForm())
+    {
+
+        <div class="row">
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.id, new { style = "display:none" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.IDLegis, new { style = "display:none" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.IDCliente, new { style = "display:none" })
+            </div>
+            <div class="form-group col-sm-6">
+                @Html.TextBoxFor(model => model.IDParametros, new { style = "display:none" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3">
+                @Html.LabelFor(model => model.DataCausa)
+                @Html.TextBoxFor(model => model.DataCausa, new { @type = "date", @class = "form-control datepicker", @Value = Model.DataCausa.ToString("yyyy-MM-dd") })
+                @Html.ValidationMessageFor(model => model.DataCausa, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-sm-9">
+                @Html.LabelFor(model => model.Causa)
+                @Html.TextAreaFor(m => m.Causa, 5, 50, new { @class = "form-control", })
+                @Html.ValidationMessageFor(model => model.Causa, "", new { @class = "error invalid-feedback" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3">
+                @Html.LabelFor(model => model.Prazo)
+                @Html.TextBoxFor(model => model.Prazo, new { @type = "date", @class = "form-control datepicker", @Value = Model.Prazo.ToString("yyyy-MM-dd") })
+                @Html.ValidationMessageFor(model => model.Prazo, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group col-sm-9">
+                @Html.LabelFor(model => model.Correcao_Corretivas)
+                @Html.TextAreaFor(m => m.Correcao_Corretivas, 5, 50, new { @class = "form-control", })
+                @Html.ValidationMessageFor(model => model.Correcao_Corretivas, "", new { @class = "error invalid-feedback" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-3">
+                @Html.LabelFor(model => model.ResultFinal)
+                @Html.DropDownListFor(model => model.ResultFinal, new SelectList(
+               new List<Object>{
+                       new { value = "Não Informado" , text = "Não Informado"  },
+                       new { value = "Atende" , text = "Atende" },
+                       new { value = "Não Atende" , text = "Não Atende"  },
+                       new { value = "Atende Parcial" , text = "Atende Parcial" },
+                       new { value = "Em Andamento" , text = "Em Andamento" },
+                       new { value = "Não Aplicável" , text = "Não Aplicável" }
+                 },"value","text", 2))
+            </div>
+            <div class="form-group col-sm-9">
+                @Html.LabelFor(model => model.Eficacia)
+                @Html.TextAreaFor(m => m.Eficacia, 5, 50, new { @class = "form-control", })
+                @Html.ValidationMessageFor(model => model.Eficacia, "", new { @class = "error invalid-feedback" })
+            </div>
+        </div>
+
+        <div class="form-actions col-md-offset-2">
+            <input class="btn btn-success" type="submit" name="btnsalvar" value="Salvar" />
+        </div>
+    }
+</div>
+
+
+

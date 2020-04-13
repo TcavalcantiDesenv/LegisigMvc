@@ -1,0 +1,23 @@
+﻿@using Model.Entity;
+@using Model.Neg;
+@model Model.Entity.LeisClientes
+
+@{
+    Legis_ClienteNeg legisClientelNeg = new Legis_ClienteNeg();
+    var dados = legisClientelNeg.findAll().OrderByDescending(p => p.Id).Where(p => p.Id == ViewBag.ID).ToList();
+    var teste = "";
+}
+
+<select asp-for="Aplicavel" asp-items="Aplicavel" class="form-control"></select>
+<div class="form-group col-sm-6">
+    @Html.LabelFor(model => model.Aplicavel)
+    @Html.DropDownList(dados[0].Aplicavel, new SelectList(
+      new List<Object>{
+           new { value = 0 , text = "Não"  },
+           new { value = 1 , text = "Sim" }
+        },
+      "value",
+      "text",
+       2))
+    @Html.ValidationMessageFor(model => model.Aplicavel, "", new { @class = "error invalid-feedback" })
+</div>

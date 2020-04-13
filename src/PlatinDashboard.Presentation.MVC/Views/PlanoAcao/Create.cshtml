@@ -1,0 +1,194 @@
+﻿@model Model.Entity.PlanoAcao
+@section Styles{
+    @Styles.Render("~/coreui/select2/css")
+    <style>
+        .select2-selection__rendered {
+            position: relative;
+            height: 23px;
+            top: 4px;
+        }
+
+        .select2-selection {
+            height: 35px !important;
+            border: 1px solid #e4e7ea !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 31px;
+        }
+    </style>
+}
+@section breadcrumb{
+    <!-- Breadcrumb-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index", "Home")">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="@Url.Action("Index", "Empresas")">Empresas</a>
+        </li>
+        <li class="breadcrumb-item active">Novo Plano de Ação</li>
+        <!-- Breadcrumb Menu-->
+        <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+                <a class="btn" href="javascript:void(0)">
+                    Olá @User.Identity.Name !
+                </a>
+            </div>
+        </li>
+    </ol>
+}
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 style="display: inline-block">Cadastrar Plano de Ação</h4>
+                <a href="@Url.Action("Index", "PlanoAcao")" class="btn btn-primary pull-right">Cancelar</a>
+            </div>
+            <div class="card-body" id="form-content">
+                @using (Html.BeginForm())
+                {
+
+                    <div class="row">
+                        <div class="form-group col-sm-6">
+                            @Html.TextBoxFor(model => model.id, new { style = "display:none" })
+                        </div>
+                        <div class="form-group col-sm-6">
+                            @Html.TextBoxFor(model => model.IDLegis, new { style = "display:none" })
+                        </div>
+                        <div class="form-group col-sm-6">
+                            @Html.TextBoxFor(model => model.IDCliente, new { style = "display:none" })
+                        </div>
+                        <div class="form-group col-sm-6">
+                            @Html.TextBoxFor(model => model.IDParametros, new { style = "display:none" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            @Html.LabelFor(model => model.DataCausa)
+                            @Html.TextBoxFor(model => model.DataCausa, new { @type = "date", @class = "form-control datepicker" })
+                            @Html.ValidationMessageFor(model => model.DataCausa, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-sm-9">
+                            @Html.LabelFor(model => model.Causa)
+                            @Html.TextAreaFor(m => m.Causa, 5, 50, new { @class = "form-control", })
+                            @Html.ValidationMessageFor(model => model.Causa, "", new { @class = "error invalid-feedback" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            @Html.LabelFor(model => model.Prazo)
+                            @Html.TextBoxFor(model => model.Prazo, new { @type = "date", @class = "form-control datepicker" })
+                            @Html.ValidationMessageFor(model => model.Prazo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-sm-9">
+                            @Html.LabelFor(model => model.Correcao_Corretivas)
+                            @Html.TextAreaFor(m => m.Correcao_Corretivas, 5, 50, new { @class = "form-control", })
+                            @Html.ValidationMessageFor(model => model.Correcao_Corretivas, "", new { @class = "error invalid-feedback" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            @Html.LabelFor(model => model.ResultFinal)
+                            @Html.DropDownListFor(model => model.ResultFinal, new SelectList(
+                           new List<Object>{
+                                   new { value = "Não Informado" , text = "Não Informado"  },
+                                   new { value = "Atende" , text = "Atende" },
+                                   new { value = "Não Atende" , text = "Não Atende"  },
+                                   new { value = "Atende Parcial" , text = "Atende Parcial" },
+                                   new { value = "Em Andamento" , text = "Em Andamento" },
+                                   new { value = "Não Aplicável" , text = "Não Aplicável" }
+                             },"value","text", 2))
+                        </div>
+                        <div class="form-group col-sm-9">
+                            @Html.LabelFor(model => model.Eficacia)
+                            @Html.TextAreaFor(m => m.Eficacia, 5, 50, new { @class = "form-control", })
+                            @Html.ValidationMessageFor(model => model.Eficacia, "", new { @class = "error invalid-feedback" })
+                        </div>
+                    </div>
+                    <div class="form-actions col-md-offset-2">
+                        <input class="btn btn-success" type="submit" name="btnsalvar" value="Salvar" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/coreui/select2/script")
+
+    <script>
+        $(document).ready(function () {
+            $('.select2-element').select2();
+            $('#CustomerCode').next().hide('fast');
+            changeFormStructure();
+        });
+
+        $('#ImportedFromAdministrative').bind('change', function () {
+            changeFormStructure();
+        })
+
+        function changeFormStructure() {
+            if (document.getElementById('ImportedFromAdministrative').checked) {
+                $('#NameContent').hide('slow');
+                $('#user-form-content').hide('slow');
+                $('#CustomerCode').next().show('slow');
+            }
+            else {
+                $('#CustomerCode').next().hide('slow');
+                $('#NameContent').show('slow');
+                $('#user-form-content').show('slow');
+            }
+        }
+
+                        //$(function () {
+                        //    $("[type=datetime]").datepicker({
+                        //        closeText: 'Fechar',
+                        //        prevText: '',
+                        //        nextText: '',
+                        //        currentText: 'Hoje',
+                        //        monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho',
+                        //            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                        //        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+                        //            'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                        //        dayNames: ['Domingo', 'Segunda-feira', 'Ter&ccedil;a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sabado'],
+                        //        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                        //        dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                        //        weekHeader: 'Sm',
+                        //        dateFormat: 'dd/mm/yy',
+                        //        firstDay: 0,
+                        //        isRTL: false,
+                        //        showMonthAfterYear: false,
+                        //        yearSuffix: '',
+                        //        changeMonth: true,
+                        //        changeYear: true
+                        //    });
+                        //});
+
+    </script>
+    <script type="text/javascript" language="javascript">
+
+                                        //$(function () {
+                                        //    $('input[type=datetime]').datepicker({
+                                        //        dateFormat: 'dd/mm/yy',
+                                        //        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                                        //        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                                        //        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                                        //        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                                        //        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                                        //        nextText: 'Proximo',
+                                        //        prevText: 'Anterior',
+                                        //        showOn: "button"
+                                        //    }).css("display", "inline-block")
+                                        //        .next("button").button({
+                                        //            icons: { primary: "ui-icon-calendar" },
+                                        //            label: "Selecione uma data",
+                                        //            text: false
+                                        //        });
+                                        //});
+    </script>
+}
+
